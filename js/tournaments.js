@@ -11,7 +11,7 @@ async function loadTournaments(page = 1) {
 
     try {
         // Build URL with page, page_size, ordering, and status filter
-        const url = new URL('https://atom-game.ir/api/tournaments/tournaments/');
+        const url = new URL('https://atom-game.ir/backend/api/tournaments/tournaments/');
         url.searchParams.set('page', page);
         url.searchParams.set('page_size', pageSize);
         url.searchParams.set('ordering', ordering);
