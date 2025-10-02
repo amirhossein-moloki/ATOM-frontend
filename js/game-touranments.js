@@ -1,6 +1,7 @@
 // ---------------------- 1. گرفتن gameId از URL ----------------------
 const urlParams = new URLSearchParams(window.location.search);
 const gameId = urlParams.get("id");
+const { API_API_PREFIX: API_PREFIX = 'https://atom-game.ir/backend/api' } = window.APP_CONFIG || {};
 
 let allTournaments = [];
 
@@ -74,11 +75,11 @@ async function loadGameTournaments() {
 
   try {
     const [gameRes, tournamentsRes] = await Promise.all([
-      fetch(`https://atom-game.ir/backend/api/tournaments/games/${gameId}/`, {
+      fetch(`${API_PREFIX}/tournaments/games/${gameId}/`, {
         headers: getAuthHeaders(),
         signal: controller.signal
       }),
-      fetch(`https://atom-game.ir/backend/api/tournaments/tournaments/?game=${gameId}`, {
+      fetch(`${API_PREFIX}/tournaments/tournaments/?game=${gameId}`, {
         headers: getAuthHeaders(),
         signal: controller.signal
       })

@@ -1,37 +1,47 @@
+const { API_API_PREFIX: API_PREFIX = 'https://atom-game.ir/backend/api' } = window.APP_CONFIG || {};
 
+const goTOp = document.querySelector(".go-top");
 
-  const goTOp = document.querySelector(".go-top");
-
+if (goTOp) {
   goTOp.addEventListener("click", function() {
     window.scrollTo({
       top: 0,
       behavior: "smooth" // اسکرول نرم
     });
   });
-  
+}
 
-  // بخش مربوط به اسلایدر بازی ها
+// بخش مربوط به اسلایدر بازی ها
 document.addEventListener("DOMContentLoaded", function () {
     const gameSection = document.querySelector(".game_section");
     const card = document.querySelector(".game_item"); // یک کارت نمونه
+    if (!gameSection || !card) {
+      return;
+    }
     card.style.width="240";
     const cardWidth = card.offsetWidth + parseInt(getComputedStyle(card).marginRight); // عرض کارت + فاصله
 
-    document.querySelector(".game_arrowkey.right").addEventListener("click", function () {
-        gameSection.scrollBy({
-            left: cardWidth, // به سمت راست
-            behavior: "smooth"
-        });
-    });
+    const rightArrow = document.querySelector(".game_arrowkey.right");
+    const leftArrow = document.querySelector(".game_arrowkey.left");
 
-    document.querySelector(".game_arrowkey.left").addEventListener("click", function () {
-        gameSection.scrollBy({
-            left: -cardWidth, // به سمت چپ
-            behavior: "smooth"
-        });
-    });
+    if (rightArrow) {
+      rightArrow.addEventListener("click", function () {
+          gameSection.scrollBy({
+              left: cardWidth, // به سمت راست
+              behavior: "smooth",
+          });
+      });
+    }
+
+    if (leftArrow) {
+      leftArrow.addEventListener("click", function () {
+          gameSection.scrollBy({
+              left: -cardWidth, // به سمت چپ
+              behavior: "smooth",
+          });
+      });
+    }
 });
-
 
 // برای نمایش اطالعات 3کاربر برتر سایت
 document.addEventListener("DOMContentLoaded", () => {
@@ -46,7 +56,7 @@ async function loadLeaderboard() {
   container.innerHTML = ''; // پاک‌سازی قبلی
 
   try {
-      const response = await fetch('https://atom-game.ir/backend/api/users/top-players-by-rank/');
+      const response = await fetch(`${API_PREFIX}/users/top-players-by-rank/`);
       if (!response.ok) throw new Error('خطا در دریافت داده از API');
 
       const players = await response.json();
@@ -86,17 +96,15 @@ async function loadLeaderboard() {
   }
 }
 
-
-
 // ---------------------- بارگذاری 3 تورنمنت برای صفحه اصلی ----------------------
 async function loadHomeTournaments() {
   const container = document.getElementById("grid-container-tournaments");
+  if (!container) return;
   container.innerHTML = '<div class="error">در حال بارگذاری تورنمنت‌ها...</div>';
 
   try {
       const response = await fetch(
-          `https://atom-game.ir/backend/api/tournaments/tournaments/?page=1&page_size=6&ordering=start_date
-`
+          `${API_PREFIX}/tournaments/tournaments/?page=1&page_size=6&ordering=start_date`
       );
 
       if (!response.ok) throw new Error("خطا در دریافت اطلاعات تورنمنت‌ها");
@@ -125,7 +133,3 @@ async function loadHomeTournaments() {
 document.addEventListener("DOMContentLoaded", () => {
   loadHomeTournaments();
 });
-
-
-
-

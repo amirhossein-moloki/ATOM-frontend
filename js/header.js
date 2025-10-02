@@ -1,3 +1,8 @@
+const {
+  API_API_PREFIX: API_PREFIX = 'https://atom-game.ir/backend/api',
+  API_BASE_URL = 'https://atom-game.ir/backend'
+} = window.APP_CONFIG || {};
+
 document.addEventListener("DOMContentLoaded", async () => {
   const headerContainer = document.getElementById("header");
   if (!headerContainer) return;
@@ -112,7 +117,7 @@ class HeaderAuthManager {
     if (!token) return null;
 
     try {
-      const response = await fetch('https://atom-game.ir/backend/auth/users/me/', {
+      const response = await fetch(`${API_BASE_URL}/auth/users/me/`, {
         method: 'GET',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -133,7 +138,7 @@ class HeaderAuthManager {
     if (!refreshToken) { this.logout(); return null; }
 
     try {
-      const response = await fetch('https://atom-game.ir/backend/auth/jwt/refresh/', {
+      const response = await fetch(`${API_BASE_URL}/auth/jwt/refresh/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ refresh: refreshToken })
@@ -164,7 +169,7 @@ class HeaderAuthManager {
     if (!token) return '۰ تومان';
 
     try {
-      const response = await fetch('https://atom-game.ir/backend/api/wallet/', {
+      const response = await fetch(`${API_PREFIX}/wallet/`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (response.ok) {

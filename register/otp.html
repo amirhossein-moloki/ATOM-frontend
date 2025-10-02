@@ -55,8 +55,9 @@
   </div>
 
 
-  <script src="../js/libraries/register-bg.js"></script>
-  <script src="../js/libraries/register-bg2.js"></script>
+    <script src="../js/libraries/register-bg.js"></script>
+    <script src="../js/libraries/register-bg2.js"></script>
+    <script src="../js/env.js"></script>
   <script>
     // --- پس‌زمینه VANTA با محافظ
     try {
@@ -72,9 +73,12 @@
     } catch(e){ console.warn("VANTA init skipped:", e); }
 
     // ---- API URLs
-    const API_BASE_URL   = 'https://atom-game.ir/backend';
-    const SEND_OTP_URL   = `${API_BASE_URL}/api/users/users/send_otp/`;
-    const VERIFY_OTP_URL = `${API_BASE_URL}/api/users/users/verify_otp/`;
+    const {
+      API_BASE_URL   = 'https://atom-game.ir/backend',
+      API_API_PREFIX: API_PREFIX = 'https://atom-game.ir/backend/api'
+    } = window.APP_CONFIG || {};
+    const SEND_OTP_URL   = `${API_PREFIX}/users/users/send_otp/`;
+    const VERIFY_OTP_URL = `${API_PREFIX}/users/users/verify_otp/`;
 
     // ---- گرفتن پارامترها + fallback از localStorage
     const qs = new URL(window.location.href).searchParams;

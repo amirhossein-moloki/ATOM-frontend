@@ -1,4 +1,5 @@
 // Configuration
+const { API_API_PREFIX: API_PREFIX = 'https://atom-game.ir/backend/api' } = window.APP_CONFIG || {};
 let currentPage = 1;
 const pageSize = 9;
 let ordering = "start_date";
@@ -11,7 +12,7 @@ async function loadTournaments(page = 1) {
 
     try {
         // Build URL with page, page_size, ordering, and status filter
-        const url = new URL('https://atom-game.ir/backend/api/tournaments/tournaments/');
+        const url = new URL(`${API_PREFIX}/tournaments/tournaments/`);
         url.searchParams.set('page', page);
         url.searchParams.set('page_size', pageSize);
         url.searchParams.set('ordering', ordering);
