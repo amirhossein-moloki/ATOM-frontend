@@ -1,6 +1,8 @@
+const { API_API_PREFIX: API_PREFIX = 'https://atom-game.ir/backend/api' } = window.APP_CONFIG || {};
+
 async function loadGames() {
     try {
-        const response = await fetch("https://atom-game.ir/api/tournaments/games/");
+        const response = await fetch(`${API_PREFIX}/tournaments/games/`);
         const games = await response.json();
 
         const container = document.getElementById("games_container");

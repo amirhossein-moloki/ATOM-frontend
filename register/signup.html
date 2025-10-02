@@ -56,6 +56,7 @@
 
     <script src="../js/libraries/register-bg.js"></script>
     <script src="../js/libraries/register-bg2.js"></script>
+    <script src="../js/env.js"></script>
     <script>
         VANTA.NET({
             el: "#vanta-bg",
@@ -74,10 +75,13 @@
             showDots: true
         });
 
-        const API_BASE_URL = 'https://atom-game.ir';
-        const SIGNUP_URL = `${API_BASE_URL}/api/users/users/`;
-        const SEND_OTP_URL = `${API_BASE_URL}/api/users/users/send_otp/`;
-        const VERIFY_OTP_URL = `${API_BASE_URL}/api/users/users/verify_otp/`;
+        const {
+            API_BASE_URL = 'https://atom-game.ir/backend',
+            API_API_PREFIX: API_PREFIX = 'https://atom-game.ir/backend/api'
+        } = window.APP_CONFIG || {};
+        const SIGNUP_URL = `${API_PREFIX}/users/users/`;
+        const SEND_OTP_URL = `${API_PREFIX}/users/users/send_otp/`;
+        const VERIFY_OTP_URL = `${API_PREFIX}/users/users/verify_otp/`;
 
         const signupForm = document.getElementById('signupForm');
         const messageDiv = document.getElementById('message');

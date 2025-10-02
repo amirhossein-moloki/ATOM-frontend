@@ -1,11 +1,12 @@
 // wallet.js
+const { API_API_PREFIX: API_PREFIX = 'https://atom-game.ir/backend/api' } = window.APP_CONFIG || {};
 
 document.addEventListener("DOMContentLoaded", async () => {
     const walletContainer = document.querySelector(".wallet_container");
   
     try {
       // درخواست مستقیم به ولت با آیدی 5
-      const wallet = await fetchData("https://atom-game.ir/api/wallet/wallets/9/");
+      const wallet = await fetchData(`${API_PREFIX}/wallet/wallets/9/`);
   
       if (!wallet || !wallet.id) {
         walletContainer.innerHTML = `<p>خطا در دریافت اطلاعات کیف پول</p>`;
@@ -17,7 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   
       // گرفتن 5 تراکنش اخیر برای همین ولت
       const transactions = await fetchData(
-        `https://atom-game.ir/api/wallet/transactions/5/?limit=5`
+        `${API_PREFIX}/wallet/transactions/5/?limit=5`
       );
   
       if (transactions && Array.isArray(transactions)) {
